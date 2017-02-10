@@ -1,0 +1,15 @@
+mixin block(name, price, colour)
+  div.block
+    div.block-top
+    div.block-main
+      h3= name
+      h4= price
+      h4= colour
+
+html
+  head
+    title= title
+  body
+    h1= message
+    button.thisclass Button
+    +block("this", "that", "#F00")

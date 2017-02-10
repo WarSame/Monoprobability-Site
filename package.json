@@ -1,0 +1,17 @@
+{
+  "name": "monoprobability",
+  "version": "1.0.0",
+  "description": "Website showing the value of monopoly squares at different stages of the game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Graeme Cliffe",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "pug": "^2.0.0-beta11",
+    "sass": "^0.5.0"
+  }
+}
