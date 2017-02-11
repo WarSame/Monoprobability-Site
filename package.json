@@ -2,16 +2,22 @@
   "name": "monoprobability",
   "version": "1.0.0",
   "description": "Website showing the value of monopoly squares at different stages of the game.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "author": "Graeme Cliffe",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.1",
     "pug": "^2.0.0-beta11",
+    "rangeslider.js": "^2.3.0",
     "sass": "^0.5.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-sass": "^3.1.0"
   }
 }

@@ -1,0 +1,59 @@
+.settings-box {
+  background-color: #cde6d0;
+  margin: 10px;
+  height: 60px;
+  width: 80%;
+  border: 4px solid #000; }
+
+.setting {
+  display: inline-block;
+  vertical-align: middle;
+  width: 33%; }
+
+.block {
+  width: 8%;
+  height: 8%;
+  border: 4px solid #000; }
+
+.block-top {
+  border-bottom: 4px solid #000;
+  height: 25%;
+  width: 100%; }
+
+.block-main {
+  height: 75%;
+  width: 100%;
+  text-align: center; }
+
+.block-name {
+  font-size: 0.5em; }
+
+.block-price {
+  font-size: 0.5em; }
+
+.block-brown {
+  background-color: #955436; }
+
+.block-lightblue {
+  background-color: #AAE0FA; }
+
+.block-pink {
+  background-color: #D93A96; }
+
+.block-orange {
+  background-color: #F7941D; }
+
+.block-red {
+  background-color: #ED1B24; }
+
+.block-yellow {
+  background-color: #FEF224; }
+
+.block-green {
+  background-color: #1FB25A; }
+
+.block-darkblue {
+  background-color: #0072BB; }
+
+#railroads-count .slider-selection {
+  background: #BABABA; }

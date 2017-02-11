@@ -6,9 +6,11 @@ const app = express();
 
 app.set("view engine", "pug")
 app.set("views", __dirname + "/views")
+app.use(express.static("public"))
+app.locals.pretty = true
 
 app.get("/", function(req, res) {
-  res.render("index", {title:"This title", message:"Hello!"})
+  res.render("index")
 })
 
 app.listen(port, function(err) {

@@ -1,15 +1,45 @@
-mixin block(name, price, colour)
+mixin block(name, price)
   div.block
-    div.block-top
+    div.block-top.block-brown
     div.block-main
-      h3= name
-      h4= price
-      h4= colour
+      p.block-name= name
+      p.block-price= price
 
 html
   head
-    title= title
+    title= "monoprobability"
+    link(rel="stylesheet", href="/css/main.css")
+    script(src="https://code.jquery.com/jquery-3.1.1.min.js", integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=", crossorigin="anonymous")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.1/css/bootstrap-slider.min.css")
+    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+
   body
-    h1= message
-    button.thisclass Button
-    +block("this", "that", "#F00")
+    div.settings-box
+      div.setting
+        input(id="railroads-count" data-slider-id="railroads-count" type="text" data-slider-min="0" data-slider-max="4" data-slider-value="0" data-slider-orientation="vertical")
+      div.setting
+        input(id="utilities-count" type="range" data-slider-min="0" data-slider-max="2" data-slider-value="0" data-slider-orientation="vertical")
+      div.setting
+        input(id="houses-count" type="range" data-slider-min="0" data-slider-max="5" data-slider-value="0" data-slider-orientation="vertical")
+    +block("Park Place", "$26")
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.1/bootstrap-slider.min.js")
+    script.
+      $('#railroads-count').slider({
+        tooltip:"always",
+        formatter: function(value){
+          return "Railroads Owned: "+value;
+        }
+        });
+      $('#utilities-count').slider({
+        tooltip:"always",
+        formatter: function(value){
+          return "Utilities Owned: "+value;
+        }
+        });
+      $('#houses-count').slider({
+        tooltip:"always",
+        formatter: function(value){
+          return "Houses Owned: "+value;
+        }
+        });
