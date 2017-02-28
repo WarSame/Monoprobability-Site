@@ -1,0 +1,19 @@
+
+div.container-fluid.settings-box
+  div.col-xs-12.col-sm-6.col-md-4.col-lg-3
+    span.slider-label
+      |Railroads Owned
+    input(id="railroads-count" data-slider-id="railroads-count" type="text" data-slider-min="0" data-slider-max="4" data-slider-value="0")
+  div.col-xs-12.col-sm-6.col-md-4.col-lg-3
+    span.slider-label
+      |Utilities Owned
+    input(id="utilities-count" data-slider-id="utilities-count" type="text" data-slider-min="0" data-slider-max="2" data-slider-value="0")
+  div.col-xs-12.col-sm-6.col-md-4.col-lg-3
+    span.slider-label
+      |Houses Owned
+    input(id="houses-count" data-slider-id="houses-count" type="text" data-slider-min="0" data-slider-max="5" data-slider-value="0")
+  div.col-xs-12.col-sm-6.col-md-4.col-lg-3
+    input(id="calculate-btn" type="button" value="Calculate" class="btn btn-primary")
+
+script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.1/bootstrap-slider.min.js")
+script(src="/js/settings-sliders.js")

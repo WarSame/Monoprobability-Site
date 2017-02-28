@@ -1,45 +1,69 @@
-mixin block(name, price)
-  div.block
-    div.block-top.block-brown
-    div.block-main
-      p.block-name= name
-      p.block-price= price
+mixin property-block(name, price, color_class, offset)
+  div.no-pad.col-lg-1.col-md-1(class="col-lg-offset-" + offset + " col-md-offset-" + offset + " col-sm-offset-" + offset + " col-xs-offset-" + offset)
+    div.block
+      div.block-top(class=color_class)
+      div.block-main
+        p.block-name= name
+        p.block-price= price
 
 html
-  head
-    title= "monoprobability"
-    link(rel="stylesheet", href="/css/main.css")
-    script(src="https://code.jquery.com/jquery-3.1.1.min.js", integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=", crossorigin="anonymous")
-    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.1/css/bootstrap-slider.min.css")
-    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
-
+  include head.pug
   body
-    div.settings-box
-      div.setting
-        input(id="railroads-count" data-slider-id="railroads-count" type="text" data-slider-min="0" data-slider-max="4" data-slider-value="0" data-slider-orientation="vertical")
-      div.setting
-        input(id="utilities-count" type="range" data-slider-min="0" data-slider-max="2" data-slider-value="0" data-slider-orientation="vertical")
-      div.setting
-        input(id="houses-count" type="range" data-slider-min="0" data-slider-max="5" data-slider-value="0" data-slider-orientation="vertical")
-    +block("Park Place", "$26")
+    include settings-box.pug
+    div.container-fluid
+      div.row
+        +property-block("Go", "0", "block-brown", "1")
+        +property-block("Mediterranean Avenue", "60", "block-brown", "")
+        +property-block("Community Chest", "0", "block-brown")
+        +property-block("Baltic Avenue", "60", "block-brown")
+        +property-block("Income Tax", "0", "block-brown")
+        +property-block("Reading Railroad", "200", "block-brown")
+        +property-block("Oriental Avenue", "100", "block-brown")
+        +property-block("Chance", "$0", "block-brown")
+        +property-block("Vermont Avenue", "100", "block-brown")
+        +property-block("Connecticut Avenue", "120", "block-brown")
+        +property-block("Jail", "0", "block-brown")
 
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.1/bootstrap-slider.min.js")
-    script.
-      $('#railroads-count').slider({
-        tooltip:"always",
-        formatter: function(value){
-          return "Railroads Owned: "+value;
-        }
-        });
-      $('#utilities-count').slider({
-        tooltip:"always",
-        formatter: function(value){
-          return "Utilities Owned: "+value;
-        }
-        });
-      $('#houses-count').slider({
-        tooltip:"always",
-        formatter: function(value){
-          return "Houses Owned: "+value;
-        }
-        });
+      div.row
+        +property-block("St. Charles Place", "$140", "block-brown", "1")
+        +property-block("States Avenue", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Park Place", "$26", "block-brown", "1")
+        +property-block("This", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Park Place", "$26", "block-brown", "1")
+        +property-block("This", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Park Place", "$26", "block-brown", "1")
+        +property-block("This", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Park Place", "$26", "block-brown", "1")
+        +property-block("This", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Park Place", "$26", "block-brown", "1")
+        +property-block("This", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Park Place", "$26", "block-brown", "1")
+        +property-block("This", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Park Place", "$26", "block-brown", "1")
+        +property-block("This", "$5", "block-green", "8")
+
+      div.row
+        +property-block("Go", "0", "block-brown", "1")
+        +property-block("Mediterranean Avenue", "60", "block-brown")
+        +property-block("Community Chest", "0", "block-brown")
+        +property-block("Baltic Avenue", "60", "block-brown")
+        +property-block("Income Tax", "0", "block-brown")
+        +property-block("Reading Railroad", "200", "block-brown")
+        +property-block("Oriental Avenue", "100", "block-brown")
+        +property-block("Chance", "$0", "block-brown")
+        +property-block("Vermont Avenue", "100", "block-brown")
+        +property-block("Connecticut Avenue", "120", "block-brown")
