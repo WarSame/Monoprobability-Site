@@ -1,14 +1,14 @@
-$('#railroads-count').slider({
+$('#Railroad-count').slider({
   formatter: function(value){
     return "Railroads Owned: "+value;
   }
   });
-$('#utilities-count').slider({
+$('#Utility-count').slider({
   formatter: function(value){
     return "Utilities Owned: "+value;
   }
   });
-$('#houses-count').slider({
+$('#House-count').slider({
   formatter: function(value){
     return "Houses Owned: "+value;
   }

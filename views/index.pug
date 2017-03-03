@@ -6,10 +6,16 @@ mixin property-block(name, price, color_class, offset)
         p.block-name= name
         p.block-price= price
 
-html
+html(ng-app="monoprobabilityApp")
   include head.pug
   body
     include settings-box.pug
+    div
+      input(type="text" placeholder="Enter a name here")
+      h1.
+        RR {{Railroad-model}}
+        H {{Railroad-model}}
+        U {{Railroad-model}}
     div.container-fluid
       div.row
         +property-block("Go", "0", "block-brown", "1")
