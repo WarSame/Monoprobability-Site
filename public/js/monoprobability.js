@@ -1,13 +1,11 @@
-angular.module('monoprobabilityApp', [])
-.controller('OptimizationController', function(){
-  var squares = initializeSquares();
-  console.log(squares);
-})
+var monoapp = angular.module('monoprobabilityApp', []);
+monoapp.controller('OptimizationController', function(){
+  //Determine probability of ending up on each specific square
 
-function initializeSquares(){
-  var numhouses = 0;
-  var railrent = 0;
-  var utilityrent = 0;
+  //Print the sorted probability of the squares
 
-  return squares;
-}
+  //Determine value for each square, based off of the number of houses, utilities and railroads owned
+
+  //Print the sorted value of the squares
+  
+});
