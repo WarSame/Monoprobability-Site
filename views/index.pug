@@ -10,12 +10,12 @@ html(ng-app="monoprobabilityApp")
   include head.pug
   body
     include settings-box.pug
-    div
+    div(ng-controller="OptimizationController as optimize")
       input(type="text" placeholder="Enter a name here")
       h1.
-        RR {{Railroad-model}}
-        H {{Railroad-model}}
-        U {{Railroad-model}}
+        RR {{RailroadModel}}
+        H {{HouseModel}}
+        U {{UtilityModel}}
     div.container-fluid
       div.row
         +property-block("Go", "0", "block-brown", "1")

@@ -3,7 +3,7 @@ mixin settings-slider(name, min_val, max_val, default_val)
     div.slider-label
       span
         |#{name} Count
-    input(id=name+"-count" data-slider-id=name+"-count" type="text" data-slider-min=min_val data-slider-max=max_val data-slider-value=default_val, ng-value=name+"-model.value")
+    input(id=name+"-count" data-slider-id=name+"-count" type="text" data-slider-min=min_val data-slider-max=max_val data-slider-value=default_val, ng-model=name+"Model")
 
 div.container-fluid.settings-box
   +settings-slider("Railroad", 0, 4, 0)
