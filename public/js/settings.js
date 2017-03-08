@@ -14,7 +14,8 @@ var House = function(name, rent) {
 };
 var Utility = function(name){
   Square.call(this, name);
-  this.distance_moved = 7;//Distance moved heading into this square, determines rent
+  //Distance moved heading into this square, determines rent
+  this.distance_moved = 7;
   this.get_rent = function(num_utilities, distance_moved){
     if (num_utilities == 0){
       return 0;
@@ -26,14 +27,14 @@ var Utility = function(name){
       return this.distance_moved * 10;
     }
   }
-}
+};
 var Railroad = function(name){
   Square.call(this, name);
   this.rent = [0, 25, 50, 100, 200];
   this.get_rent = function(num_railroads){
     return this.rent[num_railroads];
   }
-}
+};
 
 var squares = [ new Square('Go')
 , new House('Mediterranean Avenue', [2, 10, 30, 90, 160, 250])

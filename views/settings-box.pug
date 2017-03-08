@@ -1,14 +1,11 @@
-mixin settings-slider(name, min_val, max_val, default_val)
+mixin settings-slider(name)
   div.col-xs-12.col-sm-6.col-md-4.col-lg-3
     div.slider-label
       span
         |#{name} Count
-    input(id=name+"-count" data-slider-id=name+"-count" type="text" data-slider-min=min_val data-slider-max=max_val data-slider-value=default_val, ng-model=name+"Model")
+    rzslider(rz-slider-model=name+"Slider.value" rz-slider-options=name+"Slider.options" class="slider")
 
 div.container-fluid.settings-box
-  +settings-slider("Railroad", 0, 4, 0)
-  +settings-slider("Utility", 0, 2, 0)
-  +settings-slider("House", 0, 5, 0)
-
-script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.1/bootstrap-slider.min.js")
-script(src="/js/settings-sliders.js")
+  +settings-slider("Railroad")
+  +settings-slider("Utility")
+  +settings-slider("House")
