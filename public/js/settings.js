@@ -4,6 +4,7 @@ var Square = function(name) {
   this.name = name;
   this.start_prob = 1/40;
   this.prob = 1/40;
+  this.prev_prob = 1/40;
 };
 var House = function(name, rent) {
   Square.call(this, name);
@@ -36,7 +37,7 @@ var Railroad = function(name){
   }
 };
 
-var squares = [ new Square('Go')
+var MonopolySquares = [ new Square('Go')
 , new House('Mediterranean Avenue', [2, 10, 30, 90, 160, 250])
 , new Square('Community Chest(2)')
 , new House('Baltic Avenue', [4, 20, 60, 180, 320, 450])
@@ -46,7 +47,7 @@ var squares = [ new Square('Go')
 , new Square('Chance(7)')
 , new House('Vermont Avenue', [6, 30, 90, 270, 400, 550])
 , new House('Connecticut Avenue', [8, 40, 100, 300, 450])
-, new Square('Jail'),
+, new Square('Jail')
 , new House('St. Charles Place', [10, 50, 150, 450, 625, 750])
 , new Utility('Elecrict Company')
 , new House('States Avenue', [10, 50, 150, 450, 625, 750])
