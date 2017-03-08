@@ -1,10 +1,12 @@
 //Contains all of the square data for the monopoly board
 
+const NUM_SQUARES = 40;
+const DEFAULT_PROB = 1/NUM_SQUARES;
 var Square = function(name) {
   this.name = name;
-  this.start_prob = 1/40;
-  this.prob = 1/40;
-  this.prev_prob = 1/40;
+  this.start_prob = DEFAULT_PROB;
+  this.curr_prob = DEFAULT_PROB;
+  this.prev_prob = DEFAULT_PROB;
 };
 var House = function(name, rent) {
   Square.call(this, name);
@@ -18,14 +20,16 @@ var Utility = function(name){
   //Distance moved heading into this square, determines rent
   this.distance_moved = 7;
   this.get_rent = function(num_utilities, distance_moved){
+    const UTILITY_RENT_MULTIPLIER_ONE_OWNED = 4;
+    const UTILITY_RENT_MULTIPLIER_TWO_OWNED = 10;
     if (num_utilities == 0){
       return 0;
     }
     if (num_utilities == 1){
-      return this.distance_moved * 4;
+      return this.distance_moved * UTILITY_RENT_MULTIPLIER_ONE_OWNED;
     }
     if (num_utilities == 2){
-      return this.distance_moved * 10;
+      return this.distance_moved * UTILITY_RENT_MULTIPLIER_TWO_OWNED;
     }
   }
 };

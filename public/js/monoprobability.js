@@ -34,68 +34,143 @@ monoapp.service('ProbabilityService', function(){
       return 2/36;
     }
     else if (distance == 4 || distance == 10){
-      return 3/16;
+      return 3/36;
     }
     else if (distance == 5 || distance == 9){
-      return 4/16;
+      return 4/36;
     }
     else if (distance == 6 || distance == 8){
-      return 5/16;
+      return 5/36;
     }
     else if (distance == 7){
       return 6/36;
     }
   }
 
-  this.probability_incoming_square = function(incoming_square_index){
-    //Determine the chance of actually coming from the stated square
+  this.probability_travelling_square = function(prev_index){
+    //Determine the chance of actually coming from the previous square
     //Rather than teleporting to another location
-    if (incoming_square_index < 0){
-      incoming_square_index += 40;
-    }
-    if (incoming_square_index == 7 || incoming_square_index == 22 || incoming_square_index == 36){
+    const NUM_CARDS_IN_PILE = 16;
+    const NUM_STATIONARY_CHANCE_CARDS = 6;
+    const NUM_STATIONARY_COMMUNITY_CHEST_CARDS = 15;
+    if (prev_index == 7 || prev_index == 22 || prev_index == 36){
       //Chance squares, 10/16 chance of moving elsewhere
-      return 6/16;
+      return NUM_STATIONARY_CHANCE_CARDS/NUM_CARDS_IN_PILE;
     }
-    if (incoming_square_index == 2 || incoming_square_index == 17 || incoming_square_index == 33){
+    if (prev_index == 2 || prev_index == 17 || prev_index == 33){
       //Community chest, 1/16 chance of moving to Go
-      return 15/16;
+      return NUM_STATIONARY_COMMUNITY_CHEST_CARDS/NUM_CARDS_IN_PILE;
     }
-    if (incoming_square_index == 30){
+    if (prev_index == 30){
       //Jail, obviously you go to Jail(do NOT pass Go, do NOT collect $200)
       return 0;
     }
     return 1;
   }
 
+  this.incoming_teleport_probability = function(index, squares){
+    //Chance the current square gets teleported to by other squares
+    var probability_at_chance_square = squares[7].prev_prob + squares[22].prev_prob + squares[36].prev_prob;
+    var probability_at_cc_square = squares[2].prev_prob + squares[17].prev_prob + squares[33].prev_prob;
+    var curr_prob = 0;
+    switch (index){
+      case 0://Advance to Go
+        curr_prob += probability_at_chance_square/16 + probability_at_cc_square/16;
+        break;
+      case 4://Go back 3 spaces
+        curr_prob += squares[7].prev_prob/16;
+        break;
+      case 5://Advance to nearest railroad(2 cards) and go to ReadingRailroad
+        curr_prob += probability_at_chance_square/16 + squares[36].prev_prob * 2/16;
+        break;
+      case 10://Go to Jail
+        curr_prob += probability_at_chance_square/16 + squares[30].prev_prob;
+        break;
+      case 11://Go to St. Charles
+        curr_prob += probability_at_chance_square/16;
+        break;
+      case 12://Go to nearest utility
+        curr_prob += squares[7].prev_prob/16 + squares[36].prev_prob/16;
+        break;
+      case 15://Go to nearest railroad
+        curr_prob += squares[7].prev_prob * 2/16;
+        break;
+      case 19://Go back 3 spaces
+        curr_prob += squares[22].prev_prob/16;
+        break;
+      case 24://Go to Illinois
+        curr_prob += probability_at_chance_square/16;
+        break;
+      case 25://Go to nearest railroad
+        curr_prob += squares[22].prev_prob * 2/16;
+        break;
+      case 28://Go to nearest utility
+        curr_prob += squares[22].prev_prob/16;
+        break;
+      case 33://Go back 3 spaces
+        curr_prob += squares[36].prev_prob/16;
+        break;
+      case 39://Go to boardwalk
+        curr_prob += probability_at_chance_square/16;
+        break;
+      default:
+        return 0;
+    }
+    return curr_prob;
+  }
+
   this.incoming_probability = function(index, squares){
-    //Determine probability of landing on index square
-    var prob = 0;
-    for (var distance = 2; distance <= 12; distance++){
+    //Determine probability of landing on current square
+    var curr_prob = 0;
+
+    const MIN_ROLL = 2;
+    const MAX_ROLL = 12;
+    for (var distance = MIN_ROLL; distance <= MAX_ROLL; distance++){
       //Determine probability of ending in index square based off of the
       //Probability of being on the feed-in squares
-      var incoming_square_index = index - distance;
-      console.log(incoming_square_index);
-      prob += squares[incoming_square_index].prev_prob * this.probability_incoming_square(incoming_square_index) * this.probability_travelling_distance(distance);
+      var prev_index = index - distance;
+      if (prev_index < 0){
+        prev_index += NUM_SQUARES;
+      }
+      //Probability of being at the previous square
+      var probability_at_square = squares[prev_index].prev_prob;
+      //Probability the previous square transitions by dice roll instead of teleporting somewhere else
+      var probability_incoming_square = this.probability_travelling_square(prev_index);
+      //Probability of rolling the proper distance to reach the current square from the previous
+      var probability_travelling_distance = this.probability_travelling_distance(distance);
+      curr_prob += probability_at_square * probability_incoming_square * probability_travelling_distance;
     }
-    return prob;
+    curr_prob += this.incoming_teleport_probability(index, squares);
+    return curr_prob;
   }
 
   this.get_probabilities = function(squares){
     //Obtain the steady state probabilities of the squares
-    //Loop through the squares 100 times in a DTMC
-    for (var i = 0; i < 100; i++){
+    //Loop through the squares in a DTMC
+    const DTMC_LOOPS = 1000;
+    for (var i = 0; i < DTMC_LOOPS; i++){
       //For each square, determine the probability of landing on it this cycle
-      for (index in squares){
-        squares[index].prob = this.incoming_probability(index, squares);
+      for (var j = 0; j < squares.length; j++){
+        squares[j].curr_prob = this.incoming_probability(j, squares);
       }
-      for (index in squares){
-        squares[index].prev_prob = squares[index].prob;
+      for (var j = 0; j < squares.length; j++){
+        //Shift to the previous cycle and clear the current cycle
+        squares[j].prev_prob = squares[j].curr_prob;
+        squares[j].curr_prob = 0;
       }
+    }
+    for (var i = 0; i < squares.length; i++){
+      //Shift probabilitiies back to current
+      squares[i].curr_prob = squares[i].prev_prob;
     }
   };
   this.print_probabilities = function(squares){
     console.log(squares);
+    var sum = 0;
+    for (var i = 0; i < squares.length ; i++){
+      sum += squares[i].curr_prob;
+    }
+    console.log("Sum is " + sum + " Average is " + sum/NUM_SQUARES);
   };
 });
 
