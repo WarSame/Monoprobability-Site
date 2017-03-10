@@ -8,14 +8,12 @@ mixin property-block(name, price, color_class, offset)
 
 html(ng-app="monoprobabilityApp")
   include head.pug
-  body
+  body(ng-controller="OptimizationController")
     include settings-box.pug
-    div(ng-controller="OptimizationController as optimize")
-      input(type="text" placeholder="Enter a name here")
-      h1.
-        RR {{RailroadModel}}
-        H {{HouseModel}}
-        U {{UtilityModel}}
+    h1.
+      RR {{RailroadSlider.value}}
+      H {{HouseSlider.value}}
+      U {{UtilitySlider.value}}
     div.container-fluid
       div.row
         +property-block("Go", "0", "block-brown", "1")

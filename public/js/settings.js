@@ -1,9 +1,12 @@
 //Contains all of the square data for the monopoly board
 
+const NUM_SQUARES = 40;
+const DEFAULT_PROB = 1/NUM_SQUARES;
 var Square = function(name) {
   this.name = name;
-  this.start_prob = 1/40;
-  this.prob = 1/40;
+  this.start_prob = DEFAULT_PROB;
+  this.curr_prob = DEFAULT_PROB;
+  this.prev_prob = DEFAULT_PROB;
 };
 var House = function(name, rent) {
   Square.call(this, name);
@@ -14,28 +17,31 @@ var House = function(name, rent) {
 };
 var Utility = function(name){
   Square.call(this, name);
-  this.distance_moved = 7;//Distance moved heading into this square, determines rent
+  //Distance moved heading into this square, determines rent
+  this.distance_moved = 7;
   this.get_rent = function(num_utilities, distance_moved){
+    const UTILITY_RENT_MULTIPLIER_ONE_OWNED = 4;
+    const UTILITY_RENT_MULTIPLIER_TWO_OWNED = 10;
     if (num_utilities == 0){
       return 0;
     }
     if (num_utilities == 1){
-      return this.distance_moved * 4;
+      return this.distance_moved * UTILITY_RENT_MULTIPLIER_ONE_OWNED;
     }
     if (num_utilities == 2){
-      return this.distance_moved * 10;
+      return this.distance_moved * UTILITY_RENT_MULTIPLIER_TWO_OWNED;
     }
   }
-}
+};
 var Railroad = function(name){
   Square.call(this, name);
   this.rent = [0, 25, 50, 100, 200];
   this.get_rent = function(num_railroads){
     return this.rent[num_railroads];
   }
-}
+};
 
-var squares = [ new Square('Go')
+var MonopolySquares = [ new Square('Go')
 , new House('Mediterranean Avenue', [2, 10, 30, 90, 160, 250])
 , new Square('Community Chest(2)')
 , new House('Baltic Avenue', [4, 20, 60, 180, 320, 450])
@@ -45,7 +51,7 @@ var squares = [ new Square('Go')
 , new Square('Chance(7)')
 , new House('Vermont Avenue', [6, 30, 90, 270, 400, 550])
 , new House('Connecticut Avenue', [8, 40, 100, 300, 450])
-, new Square('Jail'),
+, new Square('Jail')
 , new House('St. Charles Place', [10, 50, 150, 450, 625, 750])
 , new Utility('Elecrict Company')
 , new House('States Avenue', [10, 50, 150, 450, 625, 750])
