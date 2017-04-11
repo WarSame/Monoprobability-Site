@@ -1,27 +1,36 @@
 var monoapp = angular.module('monoprobabilityApp', ['rzModule']);
 var OptContr = monoapp.controller('OptimizationController', ['$scope', 'ValuationService', function($scope, ValuationService){
+  $scope.squares = MonopolySquares;
   $scope.RailroadSlider = {
     value: 0,
     options: {
       floor: 0,
-      ceil: 4
+      ceil: 4,
+      showSelectionBar: true
     }
   };
   $scope.UtilitySlider = {
     value: 0,
     options: {
       floor: 0,
-      ceil: 2
+      ceil: 2,
+      showSelectionBar: true
     }
   };
   $scope.HouseSlider = {
     value: 0,
     options: {
       floor: 0,
-      ceil: 5
+      ceil: 5,
+      showSelectionBar: true
     }
   };
-  ValuationService.valuate(MonopolySquares, $scope.RailroadSlider, $scope.UtilitySlider, $scope.HouseSlider);
+
+  ValuationService.get_probabilities($scope.squares);
+
+  $scope.$watchGroup(["RailroadSlider.value", "UtilitySlider.value", "HouseSlider.value"], function(){
+    ValuationService.get_values($scope.squares, $scope.RailroadSlider.value, $scope.UtilitySlider.value, $scope.HouseSlider.value);
+  });
 }]);
 
 monoapp.service('ProbabilityService', function(){
@@ -170,20 +179,70 @@ monoapp.service('ProbabilityService', function(){
     for (var i = 0; i < squares.length ; i++){
       sum += squares[i].curr_prob;
     }
-    console.log("Sum is " + sum + " Average is " + sum/NUM_SQUARES);
+    console.log("Probability sum is " + sum);
+    console.log("Probability average is " + sum/NUM_SQUARES);
   };
 });
 
-monoapp.service('ValuationService', function(ProbabilityService){
-  this.valuate = function(squares, railroadcount, utilitycount, housecount){
+
+monoapp.service('ValueService', function(){
+  this.get_values = function(squares, railroadcount, utilitycount, housecount){
+    for (var i = 0; i < squares.length; i++){
+      if (squares[i] instanceof Railroad){
+        squares[i].value = squares[i].get_rent(railroadcount);
+      }
+      else if (squares[i] instanceof Utility) {
+        squares[i].value = squares[i].get_rent(utilitycount);
+      }
+      else if (squares[i] instanceof House){
+        squares[i].value = squares[i].get_rent(housecount);
+      }
+    }
+  };
+
+  this.normalize_values = function(squares){
+    var sum = 0;
+    for (var i = 0; i<squares.length; i++){
+      sum += squares[i].value;
+    }
+    const VALUE_NORMALIZATION_MODIFIER = 100;
+    for (var i = 0; i < squares.length; i++){
+      squares[i].norm_value = VALUE_NORMALIZATION_MODIFIER * squares[i].value / sum;
+    }
+  };
+
+  this.print_values = function(squares){
+    console.log(squares);
+    var sum = 0;
+    var value_square_count = 0;
+    var curr_square_value = 0;
+    for (var i = 0; i < squares.length; i++){
+      sum += squares[i].value;
+    }
+    console.log("Value sum is " + sum);
+    console.log("Value average is " + sum/NUM_SQUARES);
+  };
+
+});
+
+monoapp.service('ValuationService', function(ProbabilityService, ValueService){
+  this.get_probabilities = function(squares){
     //Determine probability of ending up on each specific square
     ProbabilityService.get_probabilities(squares);
 
-    //Print the sorted probability of the squares
+    //Print the sum and average of the probabilities
     ProbabilityService.print_probabilities(squares);
+  }
 
+  this.get_values = function(squares, railroadcount, utilitycount, housecount){
     //Determine value for each square, based off of the number of houses, utilities and railroads owned
+    ValueService.get_values(squares, railroadcount, utilitycount, housecount);
 
-    //Print the sorted value of the squares
+    //Normalize values for easier comparison between squares
+    ValueService.normalize_values(squares);
+
+    //Print values out neatly
+    ValueService.print_values(squares);
+    console.log("---Cycle end---");
   }
 });

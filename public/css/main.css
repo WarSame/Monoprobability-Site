@@ -1,9 +1,6 @@
 body {
   background-color: #cde6d0; }
 
-#Railroad-count .slider-selection, #Utility-count .slider-selection, #House-count .slider-selection {
-  background: #BABABA; }
-
 .block {
   border: 2px solid #000;
   height: 12.5%;
@@ -67,3 +64,6 @@ body {
 
 .slider.rzslider .rz-bar {
   background-color: #FFF; }
+
+.slider.rzslider .rz-selection {
+  background: #BABABA; }

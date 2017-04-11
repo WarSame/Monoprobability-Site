@@ -4,7 +4,7 @@ mixin property-block(name, price, color_class, offset)
       div.block-top(class=color_class)
       div.block-main
         p.block-name= name
-        p.block-price= price
+        p.block-price {{squares[1].norm_value}}
 
 html(ng-app="monoprobabilityApp")
   include head.pug
@@ -17,7 +17,7 @@ html(ng-app="monoprobabilityApp")
     div.container-fluid
       div.row
         +property-block("Go", "0", "block-brown", "1")
-        +property-block("Mediterranean Avenue", "60", "block-brown", "")
+        +property-block("Mediterranean Avenue", "60", "block-brown")
         +property-block("Community Chest", "0", "block-brown")
         +property-block("Baltic Avenue", "60", "block-brown")
         +property-block("Income Tax", "0", "block-brown")

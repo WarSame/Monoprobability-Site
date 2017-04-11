@@ -7,6 +7,8 @@ var Square = function(name) {
   this.start_prob = DEFAULT_PROB;
   this.curr_prob = DEFAULT_PROB;
   this.prev_prob = DEFAULT_PROB;
+  this.value = 0;
+  this.norm_value = 0;
 };
 var House = function(name, rent) {
   Square.call(this, name);
@@ -19,7 +21,7 @@ var Utility = function(name){
   Square.call(this, name);
   //Distance moved heading into this square, determines rent
   this.distance_moved = 7;
-  this.get_rent = function(num_utilities, distance_moved){
+  this.get_rent = function(num_utilities){
     const UTILITY_RENT_MULTIPLIER_ONE_OWNED = 4;
     const UTILITY_RENT_MULTIPLIER_TWO_OWNED = 10;
     if (num_utilities == 0){
@@ -50,10 +52,10 @@ var MonopolySquares = [ new Square('Go')
 , new House('Oriental Avenue', [6, 30, 90, 270, 400, 550])
 , new Square('Chance(7)')
 , new House('Vermont Avenue', [6, 30, 90, 270, 400, 550])
-, new House('Connecticut Avenue', [8, 40, 100, 300, 450])
+, new House('Connecticut Avenue', [8, 40, 100, 300, 450, 600])
 , new Square('Jail')
 , new House('St. Charles Place', [10, 50, 150, 450, 625, 750])
-, new Utility('Elecrict Company')
+, new Utility('Electric Company')
 , new House('States Avenue', [10, 50, 150, 450, 625, 750])
 , new House('Virginia Avenue', [12, 60, 180, 500, 700, 900])
 , new Railroad('Pennsylvania Railroad')
