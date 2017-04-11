@@ -211,6 +211,13 @@ monoapp.service('ValueService', function(){
     }
   };
 
+  this.clean_values = function(squares){
+    const PRECISION_DIGITS = 4;
+    for (var i = 0; i<squares.length; i++){
+      squares[i].norm_value = squares[i].norm_value.toPrecision(PRECISION_DIGITS);
+    }
+  };
+
   this.print_values = function(squares){
     console.log(squares);
     var sum = 0;
@@ -240,6 +247,9 @@ monoapp.service('ValuationService', function(ProbabilityService, ValueService){
 
     //Normalize values for easier comparison between squares
     ValueService.normalize_values(squares);
+
+    //Round values to a certain precision for display
+    ValueService.clean_values(squares);
 
     //Print values out neatly
     ValueService.print_values(squares);
