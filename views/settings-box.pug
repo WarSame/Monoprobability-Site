@@ -6,6 +6,7 @@ mixin settings-slider(name)
     rzslider(rz-slider-model=name+"Slider.value" rz-slider-options=name+"Slider.options" class="slider")
 
 div.container-fluid.settings-box
-  +settings-slider("Railroad")
-  +settings-slider("Utility")
-  +settings-slider("House")
+  div.row
+    +settings-slider("Railroad")
+    +settings-slider("Utility")
+    +settings-slider("House")
