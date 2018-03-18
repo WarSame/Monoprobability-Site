@@ -33,6 +33,14 @@ var OptContr = monoapp.controller('OptimizationController', ['$scope', 'Valuatio
   });
 }]);
 
+monoapp.filter('zeroString', function(){
+  return function(numString){
+    if (numString != 0){
+      return numString;
+    }
+  };
+});
+
 monoapp.service('ProbabilityService', function(){
   this.probability_travelling_distance = function(distance){
     //Represents the dice rolls determining the distance travelled
@@ -184,7 +192,6 @@ monoapp.service('ProbabilityService', function(){
   };
 });
 
-
 monoapp.service('ValueService', function(){
   this.get_values = function(squares, railroadcount, utilitycount, housecount){
     for (var i = 0; i < squares.length; i++){
@@ -212,9 +219,9 @@ monoapp.service('ValueService', function(){
   };
 
   this.clean_values = function(squares){
-    const PRECISION_DIGITS = 4;
+    const PRECISION_DIGITS = 1;
     for (var i = 0; i<squares.length; i++){
-      squares[i].norm_value = squares[i].norm_value.toPrecision(PRECISION_DIGITS);
+      squares[i].norm_value = squares[i].norm_value.toFixed(PRECISION_DIGITS);
     }
   };
 

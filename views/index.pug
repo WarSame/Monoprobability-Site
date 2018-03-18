@@ -5,7 +5,8 @@ mixin property-block(name, index, color_class)
         div.block-top(class=color_class)
       div.block-main
         p.block-name= name
-        p.block-price= "{{squares[" + index + "].norm_value}}"
+        p.block-price
+          = "{{squares[" + index + "].norm_value | zeroString}}"
 
 html(ng-app="monoprobabilityApp")
   include head.pug
