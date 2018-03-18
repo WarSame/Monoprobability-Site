@@ -10,7 +10,7 @@ app.use(express.static("public"))
 app.locals.pretty = true
 
 app.get("/", function(req, res) {
-  res.render("index")
+  res.render("index", {basedir:"."})
 })
 
 app.listen(port, function(err) {

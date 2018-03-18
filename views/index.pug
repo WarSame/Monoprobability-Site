@@ -9,9 +9,9 @@ mixin property-block(name, index, color_class)
           = "{{squares[" + index + "].norm_value | zeroString}}"
 
 html(ng-app="monoprobabilityApp")
-  include ./head.pug
+  include /views/head.pug
   body(ng-controller="OptimizationController")
-    include ./settings-box.pug
+    include /views/settings-box.pug
     div.container-fluid
       div.row.justify-content-between
         +property-block("Go", 0)
