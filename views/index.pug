@@ -1,74 +1,75 @@
 mixin property-block(name, index, color_class, offset)
   div.no-pad.col-lg-1.col-md-1(class="col-lg-offset-" + offset + " col-md-offset-" + offset + " col-sm-offset-" + offset + " col-xs-offset-" + offset)
     div.block
-      div.block-top(class=color_class)
+      if color_class
+        div.block-top(class=color_class)
       div.block-main
         p.block-name= name
         p.block-price= "{{squares[" + index + "].norm_value}}"
 
 html(ng-app="monoprobabilityApp")
-  include head.pug
+  include ./head.pug
   body(ng-controller="OptimizationController")
-    include settings-box.pug
+    include ./settings-box.pug
     div.container-fluid
       div.row
-        +property-block("Go", 0, "block-brown", "1")
+        +property-block("Go", 0, null, "1")
         +property-block("Mediterranean Avenue", 1, "block-brown")
-        +property-block("Community Chest", 2, "block-brown")
+        +property-block("Community Chest", 2, null)
         +property-block("Baltic Avenue", 3, "block-brown")
-        +property-block("Income Tax", 4, "block-brown")
-        +property-block("Reading Railroad", 5, "block-brown")
-        +property-block("Oriental Avenue", 6, "block-brown")
-        +property-block("Chance", 7, "block-brown")
-        +property-block("Vermont Avenue", 8, "block-brown")
-        +property-block("Connecticut Avenue", 9, "block-brown")
-        +property-block("Jail", 10, "block-brown")
+        +property-block("Income Tax", 4, null)
+        +property-block("Reading Railroad", 5, null)
+        +property-block("Oriental Avenue", 6, "block-lightblue")
+        +property-block("Chance", 7, null)
+        +property-block("Vermont Avenue", 8, "block-lightblue")
+        +property-block("Connecticut Avenue", 9, "block-lightblue")
+        +property-block("Jail", 10, null)
 
       div.row
-        +property-block('Boardwalk', 39, "block-brown", "1")
-        +property-block("St. Charles Place", 11, "block-green", "9")
+        +property-block('Boardwalk', 39, "block-darkblue", "1")
+        +property-block("St. Charles Place", 11, "block-pink", "9")
 
       div.row
-        +property-block('Luxury Tax', 38, "block-brown", "1")
-        +property-block('Electric Company', 12, "block-green", "9")
+        +property-block('Luxury Tax', 38, null, "1")
+        +property-block('Electric Company', 12, null, "9")
 
       div.row
-        +property-block('Park Place', 37, "block-brown", "1")
-        +property-block('States Avenue', 13, "block-green", "9")
+        +property-block('Park Place', 37, "block-darkblue", "1")
+        +property-block('States Avenue', 13, "block-pink", "9")
 
       div.row
-        +property-block('Chance(36)', 36, "block-brown", "1")
-        +property-block('Virginia Avenue', 14, "block-green", "9")
+        +property-block('Chance(36)', 36, null, "1")
+        +property-block('Virginia Avenue', 14, "block-pink", "9")
 
       div.row
-        +property-block('Short Line', 35, "block-brown", "1")
-        +property-block('Pennsylvania Railroad', 15, "block-green", "9")
+        +property-block('Short Line', 35, null, "1")
+        +property-block('Pennsylvania Railroad', 15, null, "9")
 
       div.row
-        +property-block('Pennsylvania Avenue', 34, "block-brown", "1")
-        +property-block('St. James Place', 16, "block-green", "9")
+        +property-block('Pennsylvania Avenue', 34, "block-green", "1")
+        +property-block('St. James Place', 16, "block-orange", "9")
 
       div.row
-        +property-block('Community Chest(33)', 33, "block-brown", "1")
-        +property-block('Community Chest(17)', 17, "block-green", "9")
+        +property-block('Community Chest(33)', 33, null, "1")
+        +property-block('Community Chest(17)', 17, null, "9")
 
       div.row
-        +property-block('North Carolina Avenue', 32, "block-brown", "1")
-        +property-block('Tennessee Avenue', 18, "block-green", "9")
+        +property-block('North Carolina Avenue', 32, "block-green", "1")
+        +property-block('Tennessee Avenue', 18, "block-orange", "9")
         
       div.row
-        +property-block('Pacific Avenue', 31, "block-brown", "1")
-        +property-block('New York Avenue', 19, "block-green", "9")
+        +property-block('Pacific Avenue', 31, "block-green", "1")
+        +property-block('New York Avenue', 19, "block-orange", "9")
         
       div.row
-        +property-block('Free Parking', 20, "block-brown", "1")
-        +property-block('Kentucky Avenue', 21, "block-brown")
-        +property-block('Chance(22)', 22, "block-brown")
-        +property-block('Indiana Avenue', 23, "block-brown")
-        +property-block('Illinois Avenue', 24, "block-brown")
-        +property-block('B. & O. Railroad', 25, "block-brown")
-        +property-block('Atlantic Avenue', 26, "block-brown")
-        +property-block('Ventnor Avenue', 27, "block-brown")
-        +property-block('Water Works', 28, "block-brown")
-        +property-block('Marvin Gardens', 29, "block-brown")
-        +property-block('Go to Jail', 30, "block-brown")
+        +property-block('Free Parking', 20, null, "1")
+        +property-block('Kentucky Avenue', 21, "block-red")
+        +property-block('Chance(22)', 22, null)
+        +property-block('Indiana Avenue', 23, "block-red")
+        +property-block('Illinois Avenue', 24, "block-red")
+        +property-block('B. & O. Railroad', 25, null)
+        +property-block('Atlantic Avenue', 26, "block-yellow")
+        +property-block('Ventnor Avenue', 27, "block-yellow")
+        +property-block('Water Works', 28, null)
+        +property-block('Marvin Gardens', 29, "block-yellow")
+        +property-block('Go to Jail', 30, null)
