@@ -3,19 +3,21 @@ body {
 
 .block {
   border: 2px solid #000;
-  height: 12.5%;
   margin-left: -2px;
-  margin-bottom: -2px; }
+  margin-bottom: -2px;
+  word-wrap: break-word; }
 
 .block-top {
   border-bottom: 2px solid #000;
   height: 25%;
-  width: 100%; }
+  width: auto; }
 
 .block-main {
-  height: 75%;
-  width: 100%;
-  text-align: center; }
+  height: auto;
+  width: auto;
+  text-align: center;
+  vertical-align: middle;
+  overflow: inherit; }
 
 .block-name {
   font-size: 1.5em; }
@@ -53,6 +55,7 @@ body {
 
 .settings-box {
   background-color: #cde6d0;
+  width: 80%;
   margin: 30px;
   border: 4px solid #000; }
 
